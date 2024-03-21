@@ -6,6 +6,15 @@ require('dotenv').config(); // Carregar variáveis de ambiente do arquivo .env
 const path = require('path')
 const port = process.env.PORT || 3000 //Heroku
 
+// Configuração do middleware express.json()
+//Isso é importante para garantir que o corpo da solicitação seja analisado corretamente antes de ser passado para suas funções de rota.
+app.use(express.json());
+
+// Importando os modelos e controladores
+const projetoRouter = require('./router/projetoRouter');
+app.use('/projeto', projetoRouter)
+
+
 //configuração para servir meus arquivos estáticos
 const frontendPath = path.join(__dirname,'../Frontend');
 app.use(express.static(frontendPath));
