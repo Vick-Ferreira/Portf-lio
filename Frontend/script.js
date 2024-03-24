@@ -73,3 +73,52 @@ scrollToTopBtn.addEventListener("click", () => {
     behavior: 'smooth'
     });
 });
+
+getProjetos();
+function getProjetos() {
+  const containerProjetos = document.getElementById('container_projetos');
+  fetch('http://localhost:3000/projeto', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Dados recebidos:', data);
+    data.forEach(projeto => {
+      const card = criarCardProjetos(projeto);
+      containerProjetos.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('Erro ao obter projetos:', error);
+  });
+}
+function criarCardProjetos(projeto) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const nomeProjeto = document.createElement('h1');
+  nomeProjeto.classList.add('nome_projeto');
+  nomeProjeto.innerHTML = projeto.nome;
+
+  const descricaoProjeto = document.createElement('p');
+  descricaoProjeto.classList.add('descricao_projeto');
+  descricaoProjeto.innerHTML = projeto.descricao;
+
+   // Criar elemento de vídeo
+   const videoProjeto = document.createElement('iframe');
+   videoProjeto.setAttribute('src', projeto.video);
+   videoProjeto.setAttribute('width', '560'); // Defina a largura e a altura conforme necessário
+   videoProjeto.setAttribute('height', '315');
+   videoProjeto.setAttribute('frameborder', '0');
+   videoProjeto.setAttribute('allowfullscreen', '');
+ 
+   // Adicionar elementos ao cartão
+   card.appendChild(nomeProjeto);
+   card.appendChild(descricaoProjeto);
+   card.appendChild(videoProjeto);
+ 
+  return card;
+}

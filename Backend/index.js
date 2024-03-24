@@ -19,7 +19,7 @@ app.use('/projeto', projetoRouter)
 const frontendPath = path.join(__dirname,'../Frontend');
 app.use(express.static(frontendPath));
 app.use(express.urlencoded({extended:true}))//analisa dados das solicitações (extended :indica ao Express para analisar dados codificados em URL usando a biblioteca querystring do Node.js)
-app.use(express.json())//ler respostar json
+
 
 //metodo teste
 app.get('/', (req, res) => {
