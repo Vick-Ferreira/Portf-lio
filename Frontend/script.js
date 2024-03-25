@@ -100,9 +100,9 @@ function criarCardProjetos(projeto) {
   const card = document.createElement('div');
   card.classList.add('card');
 
-  const nomeProjeto = document.createElement('h1');
-  nomeProjeto.classList.add('nome_projeto');
-  nomeProjeto.innerHTML = projeto.nome;
+  const tituloProjeto = document.createElement('h1');
+  tituloProjeto.classList.add('titulo_projeto');
+  tituloProjeto.innerHTML = projeto.titulo;
 
   const descricaoProjeto = document.createElement('p');
   descricaoProjeto.classList.add('descricao_projeto');
@@ -116,7 +116,7 @@ function criarCardProjetos(projeto) {
   videoProjeto.setAttribute('controls', ''); // Adicione os controles de vídeo (play, pause, etc.)
 
   // Adicionar elementos ao cartão
-  card.appendChild(nomeProjeto);
+  card.appendChild(tituloProjeto);
   card.appendChild(descricaoProjeto);
   card.appendChild(videoProjeto);
 
