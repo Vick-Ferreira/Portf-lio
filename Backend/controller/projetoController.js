@@ -1,37 +1,23 @@
-const Projeto = require('../models/projeto');
+const fs = require("fs");
+const Projeto = require("../models/projetos");
 
-// Função para criar um novo projeto
-
-
-// Função para adicionar um novo projeto (incluindo vídeo)
 exports.createProjeto = async (req, res) => {
-    const { nome, descricao, video } = req.body;
+  try {
+    const { name, descricao } = req.body;
 
-    try {
-        // Verificar se todos os campos obrigatórios estão presentes
-        if (!nome || !descricao || !video) {
-            return res.status(400).json({ mensagem: "Nome, descrição e vídeo são obrigatórios." });
-        }
+    const file = req.file;
+    const projeto = new Projeto({
+      name,
+      descricao,
+      src: file.path,
+    });
 
-        // Criar um novo projeto
-        const novoProjeto = new Projeto({
-            nome,
-            descricao,
-            video
-        });
-
-        // Salvar o projeto no banco de dados
-        await novoProjeto.save();
-
-        // Responder com uma mensagem de sucesso
-        res.status(201).json({ mensagem: 'Projeto adicionado com sucesso!', projeto: novoProjeto });
-    } catch (error) {
-        // Se ocorrer algum erro, responder com uma mensagem de erro
-        console.error(error);
-        res.status(500).json({ mensagem: 'Erro ao adicionar o projeto.' });
-    }
+    await projeto.save();
+    res.json({projeto, msg: "img salva"});
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao salvar a imagem." });
+  }
 };
-
 
 exports.buscarProjeto = async (req, res) => {
     try{

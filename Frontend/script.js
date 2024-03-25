@@ -95,6 +95,7 @@ function getProjetos() {
     console.error('Erro ao obter projetos:', error);
   });
 }
+
 function criarCardProjetos(projeto) {
   const card = document.createElement('div');
   card.classList.add('card');
@@ -107,18 +108,22 @@ function criarCardProjetos(projeto) {
   descricaoProjeto.classList.add('descricao_projeto');
   descricaoProjeto.innerHTML = projeto.descricao;
 
-   // Criar elemento de vídeo
-   const videoProjeto = document.createElement('iframe');
-   videoProjeto.setAttribute('src', projeto.video);
-   videoProjeto.setAttribute('width', '560'); // Defina a largura e a altura conforme necessário
-   videoProjeto.setAttribute('height', '315');
-   videoProjeto.setAttribute('frameborder', '0');
-   videoProjeto.setAttribute('allowfullscreen', '');
- 
-   // Adicionar elementos ao cartão
-   card.appendChild(nomeProjeto);
-   card.appendChild(descricaoProjeto);
-   card.appendChild(videoProjeto);
- 
+  // Criar elemento de vídeo
+  const videoProjeto = document.createElement('video');
+  videoProjeto.setAttribute('src', `http://localhost:3000/${projeto.src.replace(/\\/g, '/')}`);
+  videoProjeto.setAttribute('width', '560'); // Defina a largura e a altura conforme necessário
+  videoProjeto.setAttribute('height', '315');
+  videoProjeto.setAttribute('controls', ''); // Adicione os controles de vídeo (play, pause, etc.)
+
+  // Adicionar elementos ao cartão
+  card.appendChild(nomeProjeto);
+  card.appendChild(descricaoProjeto);
+  card.appendChild(videoProjeto);
+
+  // Adicionar o ID do projeto como um atributo de dados para o card
+  card.dataset.projetoId = projeto._id;
+
   return card;
 }
+
+
